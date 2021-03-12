@@ -19,6 +19,8 @@ public class Item {
     private String url;
     private String description;
     private Set<String> keywords;
+    private boolean favorite;
+
 
     @JsonProperty("id")
     public String getId() {
@@ -50,6 +52,14 @@ public class Item {
         return description;
     }
 
+    public boolean getFavorite() {
+        return favorite;
+    }
+
+   public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
     public Set<String> getKeywords() {
         return keywords;
     }
@@ -63,7 +73,8 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(id, item.id) &&
+        return favorite == item.favorite &&
+                Objects.equals(id, item.id) &&
                 Objects.equals(title, item.title) &&
                 Objects.equals(location, item.location) &&
                 Objects.equals(companyLogo, item.companyLogo) &&
@@ -74,7 +85,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, location, companyLogo, url, description, keywords);
+        return Objects.hash(id, title, location, companyLogo, url, description, keywords, favorite);
     }
 
     @Override
@@ -87,6 +98,7 @@ public class Item {
                 ", url='" + url + '\'' +
                 ", description='" + description + '\'' +
                 ", keywords=" + keywords +
+                ", favorite=" + favorite +
                 '}';
     }
 
@@ -98,6 +110,12 @@ public class Item {
         private String url;
         private String description;
         private Set<String> keywords;
+        private boolean favorite;
+
+        public Builder favorite(Boolean favorite) {
+            this.favorite = favorite;
+            return this;
+        }
 
         public Builder id(String id) {
             this.id = id;
@@ -143,6 +161,7 @@ public class Item {
             item.url = url;
             item.description = description;
             item.keywords = keywords;
+            item.favorite = favorite;
             return item;
         }
     }
